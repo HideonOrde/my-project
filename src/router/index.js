@@ -41,7 +41,7 @@ const routes = [
             path: 'europe',
             component: Europe,
             meta: {
-              chinese: '欧洲新闻',
+              chinese: '欧洲新闻!',
             },
           },
         ],
