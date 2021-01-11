@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h2>周杰伦的音乐栏目</h2>
+        <h2>全部订单</h2>
     </div>
 </template>
 
@@ -10,6 +10,6 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="less" scoped>
 
 </style>

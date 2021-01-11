@@ -1,73 +1,79 @@
 <template>
-    <div>
-        <Row>
-            <i-col :span="3" class="side">
-              <!-- 左侧菜单是共享的，每个栏目都用一个，所以用v-if进行区分 -->
-              <h2>{{culumnName}}</h2>
-              <ul v-if="culumnName === '新闻'">
-                <li>
-                  <router-link to="/Page/news/asia">今日非洲</router-link>
-                </li>
-                <li>
-                  <router-link to="/Page/news/europe">今日欧洲</router-link>
-                </li>
-              </ul>
-              <ul v-if="culumnName === '音乐'">
-                <li :class="{'cur' : smallculumnName == '易烊千玺'}">
-                  <router-link to="/Page/music/yyqx">易烊千玺</router-link>
-                </li>
-                <li>
-                  <router-link to="/Page/music/jayzhou">周杰伦</router-link>
-                </li>
-              </ul>
-            </i-col>
-            <i-col :span="21">
-                面包屑导航：{{mianbaoxie}}
+  <div>
+    <Layout>
+        <Sider hide-trigger :style="{background: '#fff'}">
+            <Menu :active-name="$store.state.routerStore.Samllc_e" theme="light" width="auto"
+            v-if="$store.state.routerStore.Bigc_c == '订单'"
+            @on-select="selectHan">
+                <Submenu name="1">
+                    <template slot="title">
+                        <Icon type="ios-navigate"></Icon>
+                        订单栏目
+                    </template>
+                    <MenuItem name="allorder">全部订单</MenuItem>
+                    <MenuItem name="newsorder">新建订单</MenuItem>
+                    <MenuItem name="delorder">订单回收站</MenuItem>
+                </Submenu>
+                <Submenu name="3">
+                    <template slot="title">
+                        <Icon type="ios-analytics"></Icon>
+                        系统
+                    </template>
+                </Submenu>
+            </Menu>
+            <Menu :active-name="$store.state.routerStore.Samllc_e" theme="light" width="auto"
+            v-if="$store.state.routerStore.Bigc_c == '财务'"
+            @on-select="selectHan">
+                <Submenu name="1">
+                    <template slot="title">
+                        <Icon type="ios-navigate"></Icon>
+                        财务
+                    </template>
+                    <MenuItem name="finance-index">财务概览</MenuItem>
+                    <MenuItem name="finance-analysis">财务分析</MenuItem>
+                </Submenu>
+                <Submenu name="3">
+                    <template slot="title">
+                        <Icon type="ios-analytics"></Icon>
+                        系统
+                    </template>
+                </Submenu>
+            </Menu>
+        </Sider>
+        <Layout :style="{padding: '0 24px 24px'}">
+            <Breadcrumb :style="{margin: '24px 0'}">
+                <BreadcrumbItem :to="{ name: 'pageindex'}">
+                  首页
+                </BreadcrumbItem>
+                <BreadcrumbItem :to="{ name: $store.state.routerStore.Bigc_e}">
+                  {{$store.state.routerStore.Bigc_c}}
+                </BreadcrumbItem>
+                <BreadcrumbItem :to="{ name: $store.state.routerStore.Samllc_e}">
+                  {{$store.state.routerStore.Samllc_c}}
+                </BreadcrumbItem>
+            </Breadcrumb>
+            <Content :style="{padding: '24px', minHeight: '280px', background: '#fff'}">
                 <router-view></router-view>
-            </i-col>
-        </Row>
-    </div>
+            </Content>
+        </Layout>
+    </Layout>
+  </div>
 </template>
 
 <script>
 export default {
-  data() {
-    return {
-      culumnName: '',
-      smallculumnName: '',
-    };
-  },
-  created() {
-    this.culumnName = this.$router.currentRoute.matched[1].meta.chinese;
-    this.smallculumnName = this.$router.currentRoute.matched[2].meta.chinese;
-  },
-  updated() {
-    this.culumnName = this.$router.currentRoute.matched[1].meta.chinese;
-    this.smallculumnName = this.$router.currentRoute.matched[2].meta.chinese;
-  },
-  computed: {
-    mianbaoxie() {
-      return `首页/${this.culumnName}${this.smallculumnName === undefined ? '' : `/${this.smallculumnName}`}`;
+  methods: {
+    selectHan(name) {
+      this.$router.push({
+        name,
+      });
     },
   },
 };
 </script>
 
 <style lang="less" scoped>
-    .side{
-        height: 300px;
-        background: orange;
-    }
-    h2{
-      padding: 10px 20px;
-    }
-    ul{
-      padding: 10px 20px;
-    }
-    ul li{
-      color:white;
-      &.cur{
-        background: white;
-      }
-    }
+  .ivu-icon-ios-arrow-down:before{
+    content: '';
+  }
 </style>

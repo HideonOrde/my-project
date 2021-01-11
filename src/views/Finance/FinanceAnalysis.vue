@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h2>易烊千玺的音乐栏目</h2>
+        <h2>财务分析</h2>
     </div>
 </template>
 
